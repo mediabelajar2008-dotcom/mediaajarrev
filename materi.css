@@ -366,3 +366,111 @@ html.dark #section-1 .mh::before { opacity: .18; }
 #section-1 .m-chapter .m-card .text-cyan-300,
 #section-1 .m-chapter .m-card .text-lime-300 { color: var(--tx) !important; }
 #section-1 .m-chapter > p.text-slate-400 { color: var(--muted) !important; }
+
+
+/* =====================================================================
+   MODE LANGKAH (materi-flow.js) — bab dipecah jadi kartu satu layar
+   Tiap langkah memakai warna aksen berbeda supaya tidak monoton.
+   Untuk mematikan: hapus <script src="materi-flow.js"> di index.html.
+   ===================================================================== */
+#section-1 .m-chapter.tab-panel { overflow: visible; overflow: clip; scroll-margin-top: 88px; }
+
+#section-1 .mf-c0 { --ac: #FF5A5F; --ac-tx: #14123A; --ac-soft: #FFE6E4; }
+#section-1 .mf-c1 { --ac: #FFC93C; --ac-tx: #14123A; --ac-soft: #FFF1C2; }
+#section-1 .mf-c2 { --ac: #2F5BFF; --ac-tx: #FFFFFF; --ac-soft: #E2E9FF; }
+#section-1 .mf-c3 { --ac: #1FD1A5; --ac-tx: #14123A; --ac-soft: #D6F7EE; }
+#section-1 .mf-c4 { --ac: #7A4DF5; --ac-tx: #FFFFFF; --ac-soft: #EAE3FF; }
+html.dark #section-1 .mf-c0 { --ac-soft: #3F2038; }
+html.dark #section-1 .mf-c1 { --ac-soft: #3C3413; }
+html.dark #section-1 .mf-c2 { --ac-soft: #1D2766; }
+html.dark #section-1 .mf-c3 { --ac-soft: #0F3D3D; }
+html.dark #section-1 .mf-c4 { --ac-soft: #352A78; }
+
+/* --- bilah progres (menempel di atas saat di-scroll) --- */
+#section-1 .m-chapter.tab-panel > .mf-bar {
+  position: sticky; top: 88px; z-index: 20; display: grid; gap: .55rem; margin: 0 0 1.6rem; padding: .65rem .75rem .75rem;
+  background: var(--card); border: 3px solid var(--ol); border-radius: 18px; box-shadow: 4px 4px 0 var(--sh);
+}
+#section-1 .mf-row { display: flex; align-items: center; justify-content: space-between; gap: .6rem; }
+#section-1 .mf-now { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 800 .9rem var(--head-font); color: var(--tx); }
+#section-1 .mf-now i { font-style: normal; color: var(--muted); font-weight: 700; margin-right: .4rem; }
+#section-1 .mf-toggle {
+  flex: none; padding: .35rem .75rem; border: 2.5px solid var(--ol); border-radius: 999px; background: var(--soft); color: var(--tx);
+  font: 700 .75rem var(--head-font); cursor: pointer;
+}
+#section-1 .mf-toggle:hover { background: var(--ac-soft); }
+#section-1 .mf-chips { display: flex; gap: .4rem; overflow-x: auto; padding: 3px 3px 5px; scrollbar-width: none; }
+#section-1 .mf-chips::-webkit-scrollbar { display: none; }
+#section-1 .mf-chip {
+  flex: none; min-width: 2.35rem; height: 2.35rem; padding: 0 .5rem; border: 2.5px solid var(--ol); border-radius: 12px;
+  background: var(--card); color: var(--tx); font: 800 .85rem var(--head-font); cursor: pointer; transition: transform .12s, box-shadow .12s, background .12s;
+}
+#section-1 .mf-chip.done { background: var(--ac-soft); }
+#section-1 .mf-chip:hover { transform: translateY(-2px); }
+#section-1 .mf-chip[aria-current="step"] { background: var(--ac); color: var(--ac-tx); transform: translate(-1px, -2px); box-shadow: 3px 3px 0 var(--sh); }
+#section-1 .mf-track { height: 9px; border: 2px solid var(--ol); border-radius: 99px; background: var(--soft); overflow: hidden; }
+#section-1 .mf-fill { height: 100%; width: 0; background: var(--ac); transition: width .4s ease; }
+
+/* --- langkah --- */
+#section-1 .mf-off { display: none !important; }
+#section-1 .mf-step { scroll-margin-top: 170px; }
+#section-1 .mf-step > section { margin-top: 0 !important; padding-top: 0 !important; border-top: 0 !important; }
+#section-1 .mf-step > .mf-top ~ .m-practice { margin-top: 0; }
+#section-1 .mf-all .mf-step + .mf-step { margin-top: 2.8rem; }
+#section-1 .mf-step > section > p.leading-relaxed:first-of-type { font-size: 1.05rem; line-height: 1.75; }
+
+/* banner judul langkah: warna, bentuk hiasan, dan nomor berbeda tiap langkah */
+#section-1 .mf-top {
+  position: relative; display: flex; align-items: center; gap: .9rem; margin: 0 0 1.4rem; padding: 1rem 1.2rem; overflow: hidden;
+  background: var(--ac); color: var(--ac-tx); border: 3px solid var(--ol); border-radius: 20px; box-shadow: 5px 5px 0 var(--sh);
+}
+#section-1 .mf-top::after { content: ""; position: absolute; right: -14px; top: -16px; width: 96px; height: 96px; background: rgba(255,255,255,.3); pointer-events: none; border-radius: 50%; }
+#section-1 .mf-c1 > .mf-top::after { border-radius: 14px; transform: rotate(18deg); }
+#section-1 .mf-c2 > .mf-top::after { border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+#section-1 .mf-c3 > .mf-top::after { width: 140px; height: 54px; border-radius: 99px; right: -26px; top: -8px; transform: rotate(-24deg); }
+#section-1 .mf-c4 > .mf-top::after { background: transparent; border: 14px solid rgba(255,255,255,.35); }
+#section-1 .mf-num {
+  flex: none; display: grid; place-items: center; width: 3.1rem; height: 3.1rem; background: var(--card); color: var(--tx);
+  border: 3px solid var(--ol); border-radius: 14px; font: 800 1.3rem var(--head-font); transform: rotate(-4deg);
+}
+#section-1 .mf-ttl { position: relative; z-index: 1; min-width: 0; }
+#section-1 .mf-kick { display: block; font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+#section-1 .mf-top .mf-h { display: block; margin: .1rem 0 0; font: 800 clamp(1.15rem, 3vw, 1.65rem)/1.2 var(--head-font); color: var(--ac-tx) !important; }
+#section-1 .mf-top .mf-h::before { display: none !important; }
+
+/* --- tombol navigasi bawah --- */
+#section-1 .mf-nav { display: flex; align-items: stretch; justify-content: space-between; gap: .8rem; margin-top: 1.8rem; padding-top: 1.4rem; border-top: 3px dashed var(--ol); }
+#section-1 .mf-all .mf-nav { display: none; }
+#section-1 .mf-count { align-self: center; font: 700 .85rem var(--head-font); color: var(--muted); }
+#section-1 .mf-btn {
+  display: flex; flex-direction: column; justify-content: center; min-width: 0; max-width: 46%; padding: .7rem 1.1rem; text-align: left;
+  background: var(--card); color: var(--tx); border: 3px solid var(--ol); border-radius: 16px; box-shadow: 4px 4px 0 var(--sh);
+  font-family: var(--head-font); cursor: pointer; transition: transform .12s, box-shadow .12s;
+}
+#section-1 .mf-btn b { font-size: .95rem; font-weight: 800; }
+#section-1 .mf-btn small { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .72rem; opacity: .8; }
+#section-1 .mf-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--sh); }
+#section-1 .mf-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--sh); }
+#section-1 .mf-next { align-items: flex-end; text-align: right; background: var(--ac); color: var(--ac-tx); }
+#section-1 .mf-btn[disabled] { opacity: .35; pointer-events: none; }
+
+/* --- gerak: kartu masuk bergantian (dimatikan bila "kurangi gerakan") --- */
+@media (prefers-reduced-motion: no-preference) {
+  #section-1 .mf-step.mf-on { animation: mf-in .38s cubic-bezier(.2,.8,.2,1); }
+  #section-1 .mf-cards .mf-step.mf-on > :not(.mf-top),
+  #section-1 .mf-cards .mf-step.mf-on > section > * { animation: mf-pop .45s cubic-bezier(.2,.8,.2,1) both; }
+  #section-1 .mf-step.mf-on > :nth-child(2), #section-1 .mf-step.mf-on > section > :nth-child(2) { animation-delay: .06s !important; }
+  #section-1 .mf-step.mf-on > :nth-child(3), #section-1 .mf-step.mf-on > section > :nth-child(3) { animation-delay: .12s !important; }
+  #section-1 .mf-step.mf-on > :nth-child(4), #section-1 .mf-step.mf-on > section > :nth-child(4) { animation-delay: .18s !important; }
+  #section-1 .mf-step.mf-on > :nth-child(n+5), #section-1 .mf-step.mf-on > section > :nth-child(n+5) { animation-delay: .24s !important; }
+  @keyframes mf-in  { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: none; } }
+  @keyframes mf-pop { from { opacity: 0; transform: translateY(14px) scale(.985); } to { opacity: 1; transform: none; } }
+}
+
+@media (max-width: 560px) {
+  #section-1 .mf-nav { flex-wrap: wrap; }
+  #section-1 .mf-count { order: -1; flex: 1 1 100%; text-align: center; }
+  #section-1 .mf-btn { flex: 1 1 0; max-width: none; }
+  #section-1 .mf-top { padding: .85rem .9rem; }
+  #section-1 .mf-num { width: 2.6rem; height: 2.6rem; font-size: 1.1rem; }
+}
