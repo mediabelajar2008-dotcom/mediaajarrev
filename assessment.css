@@ -1,0 +1,374 @@
+/* ==========================================================================
+   assessment.css — Kuis & Angket SUS
+   Dimuat PALING AKHIR (setelah style.css dan materi.css).
+   Memperbaiki: opsi kuis kecil/ikut panjang teks, pilihan jawaban tidak
+   terlihat jelas, dan skala 1-5 angket SUS yang terlalu kecil.
+   ========================================================================== */
+
+/* ---------- KUIS: daftar opsi ---------- */
+#section-2 #q-options { display: grid !important; grid-template-columns: 1fr; gap: .8rem; }
+
+#section-2 #q-options .opt-btn {
+  display: grid !important; grid-template-columns: 2.6rem minmax(0, 1fr); align-items: center; gap: .5rem 1rem;
+  width: 100% !important; min-height: 64px; box-sizing: border-box;
+  margin: 0; padding: .85rem 1.1rem !important;
+  text-align: left !important; cursor: pointer;
+  font-size: 1rem; font-weight: 600; line-height: 1.45;
+  border: 2px solid #E3D8CE !important; border-radius: 16px !important;
+  color: #332E46 !important; background: #FFF7F0 !important;
+  box-shadow: none !important; opacity: 1 !important;
+  transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease !important;
+}
+#section-2 #q-options .opt-btn > span:first-child {
+  grid-column: 1; grid-row: 1; width: 2.6rem; height: 2.6rem; font-size: 1.05rem; font-weight: 800;
+  display: grid !important; place-items: center; border-radius: 12px !important;
+}
+#section-2 #q-options .opt-btn .opt-text { grid-column: 2; grid-row: 1; min-width: 0; overflow-wrap: anywhere; }
+
+#section-2 #q-options .opt-btn:hover:not(:disabled),
+#section-2 #q-options .opt-btn:focus-visible:not(:disabled) {
+  border-color: #5269ED !important; background: #EEF0FF !important; transform: translateY(-2px) !important;
+  box-shadow: 0 8px 18px rgba(82,105,237,.14) !important; outline: none;
+}
+#section-2 #q-options .opt-btn:disabled { cursor: default; opacity: 1 !important; transform: none !important; }
+
+/* Tanda "Pilihanmu / Jawaban benar" */
+#section-2 #q-options .opt-flag {
+  grid-column: 2; grid-row: 2; justify-self: start; max-width: 100%; margin: 0; padding: .3rem .7rem; border-radius: 10px;
+  font-size: .78rem; font-weight: 800; letter-spacing: .01em; white-space: normal;
+  color: #fff; background: #475569;
+}
+
+/* Jawaban benar (tidak dipilih): hijau jelas */
+#section-2 #q-options .opt-btn.is-correct {
+  color: #14361F !important; background: #E2F6D5 !important;
+  border-color: #3FA25B !important; border-style: dashed !important;
+}
+#section-2 #q-options .opt-btn.is-correct .opt-flag { background: #2F8A4B; }
+
+/* Pilihan siswa — benar */
+#section-2 #q-options .opt-btn.is-picked.is-correct {
+  background: #C9EEB3 !important; border-style: solid !important; border-width: 3px !important;
+  box-shadow: 0 0 0 4px rgba(63,162,91,.28) !important;
+}
+/* Pilihan siswa — salah */
+#section-2 #q-options .opt-btn.is-picked.is-wrong {
+  color: #5A1F27 !important; background: #FFD9D4 !important;
+  border-color: #D9483B !important; border-width: 3px !important;
+  box-shadow: 0 0 0 4px rgba(217,72,59,.26) !important;
+}
+#section-2 #q-options .opt-btn.is-picked.is-wrong .opt-flag { background: #C23A2E; }
+/* Opsi lain yang tidak dipilih setelah dijawab: redup supaya pilihan menonjol */
+#section-2 #q-options .opt-btn:disabled:not(.is-picked):not(.is-correct) { opacity: .62 !important; }
+
+/* Status di bawah opsi */
+.q-status { min-height: 1.5rem; margin-top: 1rem; font-weight: 800; font-size: .95rem; }
+#section-2 p.q-status.is-ok { color: #1F7A3E !important; }
+#section-2 p.q-status.is-bad { color: #B93427 !important; }
+
+/* Mode gelap — kuis */
+html.dark #section-2 #q-options .opt-btn { color: #FFF8F0 !important; background: #34304E !important; border-color: #5A5478 !important; }
+html.dark #section-2 #q-options .opt-btn:hover:not(:disabled),
+html.dark #section-2 #q-options .opt-btn:focus-visible:not(:disabled) { background: #3E3A5E !important; border-color: #8FA0FF !important; }
+html.dark #section-2 #q-options .opt-btn.is-correct { color: #E8FBE0 !important; background: #1F4A2E !important; border-color: #5ED27F !important; }
+html.dark #section-2 #q-options .opt-btn.is-picked.is-correct { background: #27613B !important; box-shadow: 0 0 0 4px rgba(94,210,127,.3) !important; }
+html.dark #section-2 #q-options .opt-btn.is-picked.is-wrong { color: #FFE9E6 !important; background: #6B2A2B !important; border-color: #FF8A7D !important; box-shadow: 0 0 0 4px rgba(255,138,125,.3) !important; }
+html.dark #section-2 p.q-status.is-ok { color: #8EE8A8 !important; }
+html.dark #section-2 p.q-status.is-bad { color: #FF9B90 !important; }
+
+@media (max-width: 480px) {
+  #section-2 #q-options .opt-btn { padding: .8rem .9rem !important; column-gap: .8rem; }
+}
+
+/* ---------- ANGKET SUS: skala 1-5 ---------- */
+#sus-list .sus-scale { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .55rem; margin-top: .85rem; }
+#sus-list .sus-btn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .1rem;
+  min-width: 0; min-height: 54px; padding: .4rem 0; cursor: pointer;
+  font-size: 1.2rem; font-weight: 800; line-height: 1;
+  color: #554E64 !important; background: #fff !important;
+  border: 2px solid #D9CFE0 !important; border-radius: 14px !important;
+  box-shadow: none !important; transform: none !important;
+  transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease !important;
+}
+#sus-list .sus-btn:hover, #sus-list .sus-btn:focus-visible {
+  color: #3446C9 !important; background: #EEF0FF !important; border-color: #5269ED !important;
+  transform: none !important; box-shadow: 0 4px 12px rgba(82,105,237,.16) !important; outline: none;
+}
+#sus-list .sus-btn[aria-pressed='true'] {
+  color: #fff !important; background: #4157E0 !important; border-color: #2338B5 !important;
+  box-shadow: 0 0 0 4px rgba(82,105,237,.3) !important;
+}
+#sus-list .sus-btn[aria-pressed='true']::after { content: '✓ dipilih'; font-size: .62rem; font-weight: 800; letter-spacing: .02em; }
+
+#sus-list .sus-legend { display: flex; justify-content: space-between; gap: .75rem; margin-top: .45rem; font-size: .72rem; font-weight: 700; color: #7A7388; }
+#sus-list li.is-answered { border-left-color: #35A989 !important; }
+
+.sus-progress { margin-top: 1.5rem; margin-bottom: .9rem; font-weight: 800; font-size: .9rem; color: #5269ED; text-align: center; }
+#section-3 p.sus-progress { color: #4157E0 !important; }
+
+html.dark #sus-list .sus-btn { color: #F2EEF8 !important; background: #2A2740 !important; border-color: #5A5478 !important; }
+html.dark #sus-list .sus-btn:hover, html.dark #sus-list .sus-btn:focus-visible { color: #fff !important; background: #3B3860 !important; border-color: #9AA8FF !important; }
+html.dark #sus-list .sus-btn[aria-pressed='true'] { color: #fff !important; background: #5B72FF !important; border-color: #C3CBFF !important; box-shadow: 0 0 0 4px rgba(155,170,255,.35) !important; }
+html.dark #sus-list .sus-legend { color: #B8B0C9; }
+html.dark #section-3 p.sus-progress { color: #A9B6FF !important; }
+
+@media (max-width: 480px) {
+  #sus-list .sus-scale { gap: .4rem; }
+  #sus-list .sus-btn { min-height: 52px; font-size: 1.1rem; }
+  #sus-list .sus-btn[aria-pressed='true']::after { content: '✓'; font-size: .8rem; }
+}
+
+/* ---------- Pemberitahuan "kuis belum dikerjakan" ---------- */
+#notice-belum-kuis { border: 2px solid #E8B64F; background: #FFF4D6; color: #4A3608; }
+#notice-belum-kuis p { color: #4A3608 !important; }
+#btn-kerjakan-kuis { color: #fff; background: #4157E0; border: 0; cursor: pointer; }
+#btn-kerjakan-kuis:hover { background: #3446C9; }
+html.dark #notice-belum-kuis { border-color: #C9962C; background: #3D3118; }
+html.dark #notice-belum-kuis p { color: #FFE9B0 !important; }
+
+/* ---------- Formulir identitas: jarak antar-field ---------- */
+#section-0 #nama-siswa { text-transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  #section-2 #q-options .opt-btn, #sus-list .sus-btn { transition: none !important; }
+}
+
+/* ---------- Pembahasan per soal ---------- */
+#section-2 .q-pembahasan { margin-top: 1rem; padding: 1rem 1.1rem; border-radius: 14px; border: 2px solid #C9D2FF; border-left: 6px solid #5269ED; background: #F1F3FF; }
+#section-2 .q-pembahasan b { display: block; margin-bottom: .25rem; font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #3446C9; }
+#section-2 .q-pembahasan p { margin: 0; font-size: .95rem; line-height: 1.55; color: #2B2740 !important; }
+html.dark #section-2 .q-pembahasan { background: #2C2A4A; border-color: #5A5A99; border-left-color: #9AA8FF; }
+html.dark #section-2 .q-pembahasan b { color: #B9C3FF; }
+html.dark #section-2 .q-pembahasan p { color: #F2EEF8 !important; }
+
+/* ======================== POLISH (animasi & UI/UX) ======================== */
+/* ==========================================================================
+   polish.css — animasi masuk, perapian UI/UX, dan perbaikan menu HP
+   Dimuat PALING AKHIR. Tidak mengubah fitur lama; hanya menambah lapisan.
+   ========================================================================== */
+
+/* ---------- 1. MENU SAMPING DI HP: bisa di-scroll sampai "Angket SUS" ----------
+   Penyebab: align-self:start membuat panel fixed setinggi isinya (> layar),
+   sehingga bagian bawah terpotong dan tidak bisa di-scroll. */
+@media (max-width: 860px) {
+  .lms-sidebar {
+    align-self: stretch !important;
+    height: 100vh; height: 100dvh;
+    max-height: 100dvh !important;
+    overflow-x: hidden; overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .lms-sidebar > * { flex-shrink: 0; }
+  body.drawer-open { overflow: hidden; }
+  .mobile-quick-nav { grid-template-columns: repeat(6, 1fr) !important; left: 8px !important; right: 8px !important; }
+  .mobile-quick-nav button small { font-size: .5rem; }
+}
+
+/* ---------- 2. Kartu misi tunggal setelah Mission 04 dihapus ---------- */
+.studio-mission-grid > .studio-mission-card:only-child { grid-column: 1 / -1; }
+
+/* ---------- 3. Formulir identitas ---------- */
+.field-hint { margin: .4rem .15rem 0; font-size: .72rem; line-height: 1.4; color: #7A7388; }
+html.dark .field-hint { color: #B8B0C9; }
+#section-0 input:focus, #section-0 select:focus { transform: translateY(-1px); }
+
+/* ---------- 4. Kuis: kartu, titik progres, timer ---------- */
+#section-2 > div:first-child { position: relative; overflow: hidden; }
+#section-2 > div:first-child::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 4px;
+  background: linear-gradient(90deg, #5269ED, #A16BCE, #F07869, #35A989);
+}
+.q-dots { display: flex; gap: 5px; margin-top: 1.1rem; }
+.q-dots span { flex: 1 1 0; height: 6px; border-radius: 99px; background: #E3E0EE; transition: background-color .35s ease, transform .35s ease; }
+.q-dots span.is-done { background: #5269ED; }
+.q-dots span.is-current { background: #A9B5FF; transform: scaleY(1.5); }
+html.dark .q-dots span { background: #4A4668; }
+html.dark .q-dots span.is-done { background: #8FA0FF; }
+html.dark .q-dots span.is-current { background: #C3CBFF; }
+
+#section-2.timer-low #timer-bar { background: linear-gradient(90deg, #F07869, #E5484D) !important; }
+#section-2.timer-low #timer-box { color: #B3261E !important; background: #FFE1DE !important; }
+html.dark #section-2.timer-low #timer-box { color: #FFB4AB !important; background: rgba(229,72,77,.22) !important; }
+
+/* ---------- 5. Angket: kartu pernyataan + progres menempel ---------- */
+.sus-sticky {
+  position: sticky; top: calc(env(safe-area-inset-top, 0px) + 74px); z-index: 20;
+  display: flex; align-items: center; gap: .8rem; margin: 1.1rem -.25rem 0; padding: .6rem .9rem;
+  border-radius: 14px; border: 1px solid #DCDFF6; background: rgba(255,255,255,.92); backdrop-filter: blur(8px);
+  box-shadow: 0 6px 18px rgba(60,70,140,.08);
+}
+.sus-sticky span { flex: 0 0 auto; font-size: .78rem; font-weight: 800; color: #3446C9; }
+.sus-sticky i { flex: 1 1 auto; height: 6px; border-radius: 99px; background: #E3E6FA; overflow: hidden; }
+.sus-sticky b { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, #5269ED, #35A989); transition: width .4s cubic-bezier(.2,.8,.2,1); }
+html.dark .sus-sticky { background: rgba(35,33,58,.92); border-color: #4C4A74; }
+html.dark .sus-sticky span { color: #B9C3FF; }
+html.dark .sus-sticky i { background: #4A4668; }
+
+#sus-list > li { position: relative; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+#sus-list > li:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(60,70,140,.10); }
+#sus-list > li.is-answered::after {
+  content: "✓"; position: absolute; top: .7rem; right: .8rem; width: 1.5rem; height: 1.5rem;
+  display: grid; place-items: center; border-radius: 50%; font-size: .8rem; font-weight: 800;
+  color: #fff; background: #35A989; box-shadow: 0 0 0 4px rgba(53,169,137,.18);
+}
+
+/* ---------- 6. Tombol: respons sentuhan & fokus yang jelas ---------- */
+button:not(:disabled):active { transform: scale(.98) !important; }
+:where(button, a, input, select, [tabindex]):focus-visible { outline: 3px solid rgba(82,105,237,.55); outline-offset: 2px; }
+
+/* ---------- 7. ANIMASI (hanya bila pengguna tidak membatasi gerak) ---------- */
+/* (animasi aktif di semua perangkat; versi hemat gerak ada di bagian paling bawah) */
+  @keyframes riseIn   { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @keyframes slideIn  { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+  @keyframes popIn    { 0% { opacity: 0; transform: scale(.9); } 60% { transform: scale(1.03); } 100% { opacity: 1; transform: none; } }
+  @keyframes floaty   { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-10px) rotate(6deg); } }
+  @keyframes drift    { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(14px,-12px) scale(1.08); } }
+  @keyframes spinSlow { to { transform: rotate(360deg); } }
+  @keyframes timerPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  @keyframes shine    { to { background-position: 200% 0; } }
+
+  /* Masuk halaman: setiap bagian naik pelan-pelan saat ditampilkan */
+  .page:not(.hidden) > * { animation: riseIn .55s cubic-bezier(.2,.8,.2,1) both; }
+  .page:not(.hidden) > *:nth-child(2) { animation-delay: .08s; }
+  .page:not(.hidden) > *:nth-child(3) { animation-delay: .16s; }
+  .page:not(.hidden) > *:nth-child(4) { animation-delay: .24s; }
+
+  /* Halaman identitas: kolom formulir muncul berurutan, bintang berputar */
+  #section-0:not(.hidden) .identity-card > * { animation: riseIn .6s cubic-bezier(.2,.8,.2,1) both; }
+  #section-0:not(.hidden) .identity-card > :nth-child(2) { animation-delay: .06s; }
+  #section-0:not(.hidden) .identity-card > :nth-child(3) { animation-delay: .12s; }
+  #section-0:not(.hidden) .identity-card > :nth-child(4) { animation-delay: .18s; }
+  #section-0:not(.hidden) .identity-card > :nth-child(5) { animation-delay: .24s; }
+  #section-0:not(.hidden) .identity-card .space-y-5 > * { animation: riseIn .55s cubic-bezier(.2,.8,.2,1) both; }
+  #section-0:not(.hidden) .identity-card .space-y-5 > :nth-child(1) { animation-delay: .30s; }
+  #section-0:not(.hidden) .identity-card .space-y-5 > :nth-child(2) { animation-delay: .38s; }
+  #section-0:not(.hidden) .identity-card .space-y-5 > :nth-child(3) { animation-delay: .46s; }
+  #section-0:not(.hidden) .identity-card .space-y-5 > :nth-child(4) { animation-delay: .54s; }
+  .identity-spark { display: inline-block; animation: spinSlow 14s linear infinite; }
+  #btn-mulai:not(:disabled) { background-size: 200% 100%; animation: shine 3s linear infinite; }
+
+  /* Kuis: pertanyaan dan opsi masuk berurutan setiap ganti soal */
+  #section-2.q-anim #q-text { animation: riseIn .45s cubic-bezier(.2,.8,.2,1) both; }
+  #section-2.q-anim #q-options .opt-btn { animation: slideIn .45s cubic-bezier(.2,.8,.2,1) both; }
+  #section-2.q-anim #q-options .opt-btn:nth-child(1) { animation-delay: .05s; }
+  #section-2.q-anim #q-options .opt-btn:nth-child(2) { animation-delay: .10s; }
+  #section-2.q-anim #q-options .opt-btn:nth-child(3) { animation-delay: .15s; }
+  #section-2.q-anim #q-options .opt-btn:nth-child(4) { animation-delay: .20s; }
+  #section-2.q-anim #q-options .opt-btn:nth-child(5) { animation-delay: .25s; }
+  .q-pembahasan:not(.hidden), .q-status.is-ok, .q-status.is-bad { animation: riseIn .4s cubic-bezier(.2,.8,.2,1) both; }
+  #section-2 #q-options .opt-btn.is-picked { animation: popIn .4s ease both; }
+  #section-2.timer-low #timer-box { animation: timerPulse 1s ease-in-out infinite; }
+
+  /* Hiasan melayang di balik kartu kuis & angket (seperti pada dasbor masuk) */
+  #section-2, #section-3 { position: relative; isolation: isolate; }
+  #section-2::before, #section-2::after, #section-3::before, #section-3::after {
+    content: ""; position: absolute; z-index: -1; pointer-events: none; border-radius: 50%;
+  }
+  #section-2::before, #section-3::before { width: 190px; height: 190px; top: -30px; right: -50px; background: radial-gradient(circle at 35% 35%, rgba(255,225,124,.7), rgba(255,225,124,0) 70%); animation: drift 9s ease-in-out infinite; }
+  #section-2::after, #section-3::after { width: 150px; height: 150px; bottom: 6%; left: -50px; border: 2px dashed rgba(82,105,237,.28); animation: spinSlow 30s linear infinite; }
+
+  /* Angket: pernyataan masuk berurutan */
+  #section-3:not(.hidden) #sus-list > li { animation: riseIn .5s cubic-bezier(.2,.8,.2,1) both; }
+  #sus-list > li:nth-child(1) { animation-delay: .05s !important; } #sus-list > li:nth-child(2) { animation-delay: .10s !important; }
+  #sus-list > li:nth-child(3) { animation-delay: .15s !important; } #sus-list > li:nth-child(4) { animation-delay: .20s !important; }
+  #sus-list > li:nth-child(5) { animation-delay: .25s !important; } #sus-list > li:nth-child(n+6) { animation-delay: .30s !important; }
+  #sus-list > li.is-answered::after { animation: popIn .35s ease both; }
+  #sus-list .sus-btn[aria-pressed='true'] { animation: popIn .3s ease both; }
+
+  /* Skor kuis: kartu muncul dengan pop */
+  #card-skor-kuis { animation: popIn .6s cubic-bezier(.2,.8,.2,1) both; }
+  #skor-kuis { display: inline-block; font-variant-numeric: tabular-nums; }
+
+  /* Menu samping: item masuk berurutan saat dibuka */
+  body.app-active .sidebar-link, .lms-sidebar.mobile-open .sidebar-link { animation: slideIn .45s cubic-bezier(.2,.8,.2,1) both; }
+  .sidebar-menu > :nth-child(1) { animation-delay: .04s !important; } .sidebar-menu > :nth-child(2) { animation-delay: .08s !important; }
+  .sidebar-menu > :nth-child(4) { animation-delay: .12s !important; } .sidebar-menu > :nth-child(5) { animation-delay: .16s !important; }
+  .sidebar-menu > :nth-child(6) { animation-delay: .20s !important; } .sidebar-menu > :nth-child(7) { animation-delay: .24s !important; }
+  .sidebar-menu > :nth-child(8) { animation-delay: .28s !important; } .sidebar-menu > :nth-child(9) { animation-delay: .32s !important; }
+  .sidebar-menu > :nth-child(10) { animation-delay: .36s !important; }
+  .sidebar-link { transition: transform .2s ease, background-color .2s ease; }
+  .sidebar-link:hover { transform: translateX(3px); }
+
+/* ---------- 8. Tambahan: umpan balik jawaban, dekorasi, konfeti ---------- */
+@keyframes shake { 0%,100% { transform: none; } 20% { transform: translateX(-7px); } 40% { transform: translateX(7px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
+@keyframes glowPulse { 0%,100% { box-shadow: 0 0 0 4px rgba(63,162,91,.28); } 50% { box-shadow: 0 0 0 9px rgba(63,162,91,.10); } }
+@keyframes konfetiJatuh { 0% { transform: translateY(0) rotate(0); opacity: 1; } 100% { transform: translateY(108vh) rotate(720deg); opacity: .9; } }
+@keyframes fadeOnly { from { opacity: 0; } to { opacity: 1; } }
+
+#section-2 #q-options .opt-btn.is-picked.is-wrong { animation: shake .5s ease both; }
+#section-2 #q-options .opt-btn.is-picked.is-correct { animation: popIn .4s ease both, glowPulse 1.6s ease-in-out .4s 2; }
+
+.has-deco { position: relative; overflow: clip; }
+.has-deco > :not(.deco) { position: relative; z-index: 1; }
+.deco { position: absolute; z-index: 0; pointer-events: none; user-select: none; font-weight: 900; line-height: 1; }
+.deco-1 { top: 16px; right: 20px; font-size: 1.9rem; color: #F7C94B; animation: floaty 5s ease-in-out infinite; }
+.deco-2 { bottom: 18px; left: 16px; font-size: 1.2rem; color: #F07869; animation: floaty 6.5s ease-in-out infinite reverse; }
+.deco-3 { top: 44%; right: 12px; font-size: .9rem; color: #35A989; animation: drift 7s ease-in-out infinite; }
+@media (max-width: 480px) { .deco-1 { font-size: 1.5rem; top: 12px; right: 14px; } .deco-3 { display: none; } }
+
+.confetti { position: fixed; inset: 0; z-index: 200; pointer-events: none; overflow: hidden; }
+.confetti i { position: absolute; top: -16px; width: 9px; height: 14px; border-radius: 2px; animation: konfetiJatuh 2.4s ease-in forwards; }
+
+/* ---------- 9. Perangkat dengan "kurangi gerakan" ----------
+   style.css mematikan SEMUA animasi di perangkat ini. Kita tetap menampilkan
+   transisi masuk berupa fade singkat (tanpa bergerak), dan mematikan gerak berulang. */
+@media (prefers-reduced-motion: reduce) {
+  :is(.page:not(.hidden) > *,
+      #section-0:not(.hidden) .identity-card > *,
+      #section-0:not(.hidden) .identity-card .space-y-5 > *,
+      #section-2.q-anim #q-text, #section-2.q-anim #q-options .opt-btn,
+      .q-pembahasan:not(.hidden), .q-status.is-ok, .q-status.is-bad,
+      #section-3:not(.hidden) #sus-list > li, #card-skor-kuis,
+      body.app-active .sidebar-link, .lms-sidebar.mobile-open .sidebar-link) {
+    animation-name: fadeOnly !important; animation-duration: .5s !important; animation-iteration-count: 1 !important;
+  }
+  .identity-spark, .deco, #btn-mulai, #section-2::before, #section-2::after, #section-3::before, #section-3::after,
+  #section-2 #q-options .opt-btn.is-picked, #sus-list .sus-btn[aria-pressed='true'], #sus-list > li.is-answered::after { animation: none !important; }
+}
+
+#section-2, #section-3 { overflow-x: clip; }
+
+html.dark #section-2::before, html.dark #section-3::before { opacity: .4; }
+
+/* ======================== VIDEO SINGKAT & IKON ANIMASI BAB ======================== */
+.m-video { margin-top: 1.4rem; padding: 1.1rem; border-radius: 22px; border: 1px solid #DCDFF6; background: linear-gradient(180deg, #F6F7FF, #FFFFFF); box-shadow: 0 10px 28px rgba(60,70,140,.08); }
+.m-video-head { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem .8rem; }
+.m-video-head b { font-size: 1.05rem; color: #28243A; }
+.m-video-badge { padding: .25rem .7rem; border-radius: 999px; font-size: .72rem; font-weight: 800; letter-spacing: .03em; color: #fff; background: #5269ED; }
+.m-video-desc { margin: .45rem 0 .9rem; font-size: .88rem; line-height: 1.5; color: #6B647C; }
+.m-video-frame { position: relative; border-radius: 16px; overflow: hidden; background: #14122a; aspect-ratio: 16 / 9; box-shadow: 0 8px 22px rgba(30,30,70,.2); }
+.m-video-frame video { display: block; width: 100%; height: 100%; object-fit: contain; background: #14122a; }
+.m-video-points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; margin: .9rem 0 0; padding: 0; list-style: none; }
+.m-video-points li { padding: .55rem .75rem; border-radius: 12px; font-size: .8rem; font-weight: 700; line-height: 1.35; color: #3446C9; background: #EEF0FF; }
+.m-video-more { display: inline-block; margin-top: .85rem; font-size: .8rem; font-weight: 700; color: #5269ED; text-decoration: none; }
+.m-video-more:hover { text-decoration: underline; }
+html.dark .m-video { border-color: #4C4A74; background: linear-gradient(180deg, #2B2848, #232139); box-shadow: 0 10px 28px rgba(0,0,0,.35); }
+html.dark .m-video-head b { color: #F4F0FA; } html.dark .m-video-desc { color: #B8B0C9; }
+html.dark .m-video-points li { color: #C9D1FF; background: rgba(120,140,255,.16); } html.dark .m-video-more { color: #9AA8FF; }
+@media (max-width: 640px) { .m-video-points { grid-template-columns: 1fr; } .m-video { padding: .9rem; } }
+.m-chapter:not(.hidden) .m-video { animation: riseIn .6s cubic-bezier(.2,.8,.2,1) .15s both; }
+
+/* ikon kecil beranimasi di penanda bab */
+.m-ico { display: inline-block; width: 34px; height: 34px; margin-left: .65rem; vertical-align: middle; }
+.m-ico svg { display: block; width: 100%; height: 100%; overflow: visible; }
+@keyframes uDot { 0%,28% { opacity: 1; transform: scale(1); } 33%,100% { opacity: 0; transform: scale(.4); } }
+@keyframes uLine { 0%,30% { opacity: 0; } 36%,62% { opacity: 1; } 68%,100% { opacity: 0; } }
+@keyframes uBox { 0%,62% { opacity: 0; transform: scale(.5); } 70%,94% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(.5); } }
+.m-ico-u .u-dot, .m-ico-u .u-line, .m-ico-u .u-box { transform-box: fill-box; transform-origin: center; animation-duration: 5.4s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+.m-ico-u .u-dot { animation-name: uDot; } .m-ico-u .u-line { animation-name: uLine; } .m-ico-u .u-box { animation-name: uBox; }
+@keyframes wSpin { to { transform: rotate(360deg); } }
+.m-ico-w .w-spin { transform-origin: 24px 24px; animation: wSpin 8s linear infinite; }
+.m-ico-w circle { mix-blend-mode: screen; }
+@keyframes pA { 0%,10% { transform: translate(-10px,-12px); } 45%,100% { transform: none; } }
+@keyframes pB { 0%,10% { transform: translate(12px,10px); } 50%,100% { transform: none; } }
+@keyframes pC { 0%,10% { transform: translate(-12px,14px); } 55%,100% { transform: none; } }
+@keyframes pD { 0%,10% { transform: translate(8px,-14px); } 60%,100% { transform: none; } }
+.m-ico-p rect { transform-box: fill-box; transform-origin: center; animation-duration: 4.2s; animation-iteration-count: infinite; animation-direction: alternate; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+.m-ico-p .p-a { animation-name: pA; } .m-ico-p .p-b { animation-name: pB; } .m-ico-p .p-c { animation-name: pC; } .m-ico-p .p-d { animation-name: pD; }
+@keyframes sBeam { 0% { transform: translateY(0); } 100% { transform: translateY(34px); } }
+.m-ico-s .s-beam { animation: sBeam 2.4s ease-in-out infinite alternate; filter: drop-shadow(0 0 4px rgba(56,189,248,.9)); }
+@keyframes iPkt { 0% { transform: translateY(-16px); opacity: 0; } 25% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(6px); opacity: 0; } }
+.m-ico-i .i-pkt { animation: iPkt 2.2s ease-in infinite; }
+@media (prefers-reduced-motion: reduce) { .m-ico * { animation: none !important; } }

@@ -1,0 +1,57 @@
+PANDUAN UPLOAD — KREASI DKV / REDESIGN HALAMAN MATERI (PLAYFUL CREATIVE)
+
+FILE BARU / BERUBAH (wajib diunggah)
+  - index.html            (berubah: hero, pemilih bab, kepala bab, penempatan GIF)
+  - materi.css            (BARU: seluruh gaya baru halaman materi)
+  - anim-hero.gif         + anim-hero-still.png
+  - anim-unsur.gif        + anim-unsur-still.png      (Bab 1)
+  - anim-warna.gif        + anim-warna-still.png      (Bab 2)
+  - anim-grid.gif         + anim-grid-still.png       (Bab 3)
+  - anim-scanner.gif      + anim-scanner-still.png    (Bab 4)
+  - anim-aset.gif         + anim-aset-still.png       (Bab 5)
+
+FILE LAMA (tidak berubah, byte-for-byte sama dengan paket sebelumnya)
+  - style.css, script.js, studio.js, mission-hub.js,
+    fix-this-design.js, app-navigation.js, portfolio.js
+  Jika file-file ini sudah ada di repository, tidak perlu diunggah ulang.
+
+LANGKAH
+1. Ekstrak ZIP.
+2. Buka repository GitHub Pages > tab Code > Add file > Upload files.
+3. Unggah file-file di atas LANGSUNG ke root repository (tanpa subfolder).
+   Semua file harus sejajar dengan index.html, termasuk materi.css dan anim-*.
+4. Commit changes, tunggu deploy selesai.
+5. Buka website dan tekan Ctrl+Shift+R.
+
+CATATAN
+- Jangan mengunggah PORTFOLIO_APPS_SCRIPT.gs sebagai file web.
+- File *-still.png dipakai otomatis untuk pengguna yang mengaktifkan
+  "kurangi gerakan" (prefers-reduced-motion), sehingga GIF tidak bergerak.
+- Untuk kembali ke tampilan lama: hapus baris <link href="materi.css"> di
+  index.html dan pakai index.html dari paket sebelumnya.
+
+
+========================================================================
+PEMBARUAN: IDENTITAS, KUIS/ANGKET, SPREADSHEET
+========================================================================
+FILE YANG WAJIB DIUNGGAH KE GITHUB (root repository)
+  - index.html, script.js, app-navigation.js
+  - assessment.css   (BARU)
+
+JANGAN DIUNGGAH KE GITHUB
+  - APPS_SCRIPT_Code.gs  (khusus Google Apps Script)
+
+MEMPERBARUI GOOGLE APPS SCRIPT (agar spreadsheet berformat baru)
+  1. Buka Google Sheets tujuan > Extensions > Apps Script.
+  2. Ganti isi Code.gs dengan isi APPS_SCRIPT_Code.gs, lalu Save.
+  3. Deploy > Manage deployments > ikon pensil > Version: New version > Deploy.
+     URL /exec tetap sama; API_URL di script.js tidak perlu diganti.
+  4. Hasil: sheet "Angket SUS" (Kode | Nama | Pernyataan | 1 | 2 | 3 | 4 | 5)
+     dan sheet "Rekap Skor" (Kode | Nama | Kelas | Skor Kuis | Skor SUS | Waktu).
+  Selama Apps Script lama belum diganti, pengiriman tetap berjalan seperti
+  sebelumnya (data tambahan diabaikan), tetapi format baru belum muncul.
+
+TAMBAHAN: FILE VIDEO (WAJIB UNGGAH)
+  video-bab1.mp4, video-bab2.mp4, video-bab3.mp4, video-bab4.mp4, video-bab5.mp4
+  video-bab1.jpg, video-bab2.jpg, video-bab3.jpg, video-bab4.jpg, video-bab5.jpg
+  Letakkan sejajar dengan index.html (tidak di dalam folder lain).
